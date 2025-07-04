@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<suite name="Test">
+    <test name="login">
+        <classes>
+            <class name="com.heima.testng.suite.LoginTest" />
+            <class name="com.heima.testng.suite.SuiteConfig" />
+        </classes>
+    </test>
+    <test name="pay">
+        <classes>
+            <class name="com.heima.testng.suite.PayTest"/>
+            <class name="com.heima.testng.suite.SuiteConfig" />
+        </classes>
+    </test>
+
+
+
+</suite>
