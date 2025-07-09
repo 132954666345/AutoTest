@@ -1,0 +1,14 @@
+[
+  {
+    "description": "第一个moco例子",
+    "request": {
+      "uri": "/demo"
+    },
+    "response": {
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "text": "<html><body>11啊1</body></html>"
+    }
+  }
+]
