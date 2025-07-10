@@ -15,4 +15,6 @@ public interface UserService extends IService<UserDo> {
     void add(String username, String phone, List<String> featureList);
 
     int modifyById(UserUpdateReq userUpdateReq);
+
+    int getNumber();
 }

@@ -64,9 +64,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDo> implements 
         userFeatureService.saveBatch(userFeatureDos);
     }
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int modifyById(UserUpdateReq userUpdateReq){
-
-      return 0;
+        UserDo userToUpdate = new UserDo();
+        BeanUtils.copyProperties(userUpdateReq,userToUpdate);
+        boolean result = updateById(userToUpdate);
+      return result ? 1:0;
+    }
+    @Override
+    public int getNumber(){
+        System.out.println("getNumber");
+        return 0;
     }
 
 
