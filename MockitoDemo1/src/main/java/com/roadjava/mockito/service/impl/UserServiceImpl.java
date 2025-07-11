@@ -24,13 +24,11 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDo> implements UserService {
 
     @Autowired
-    private UserService  userService;
-    @Autowired
     private UserFeatureService userFeatureService;
 
     @Override
     public UserVo selectById(Long id) {
-        UserDo userDo = userService.getById(id);
+        UserDo userDo = getById(id);
         if (userDo == null){
             return null;
         }
@@ -53,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDo> implements 
         UserDo userDo = new UserDo();
         userDo.setUsername(username);
         userDo.setPhone(phone);
-        userService.save(userDo);
+        save(userDo);
         //保存特征
         List<UserFeatureDo>  userFeatureDos = features.stream().map(feature -> {
             UserFeatureDo  userFeatureDo = new UserFeatureDo();
