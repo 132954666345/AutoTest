@@ -1,7 +1,11 @@
 package api;
 
 
+import io.restassured.http.ContentType;
+import io.restassured.http.Header;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
+import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -61,7 +65,7 @@ public class TestApi {
     public void testEncrypt(){
          response = given()
                 .when()
-                .post("https://iot.easyctid.cn/herelink-manage-business2/api/1.0.0/business/system/free/login/encrypt")
+                .post("https://zd-iot.here.link/herelink-manage-business2/api/1.0.0/business/system/free/login/encrypt")
                 .then().log().body()
                 .extract().response();
         String encryptId = response.jsonPath().get("data.encryptId").toString();
@@ -70,28 +74,33 @@ public class TestApi {
 
         @Test(dependsOnMethods = {"testEncrypt"})
     public void testLogin(){
-          /*  Response response = given()
-                    .when()
-                    .post("https://iot.easyctid.cn/herelink-manage-business2/api/1.0.0/business/system/free/login/encrypt")
-                    .then().log().body()
-                    .extract().response();
-            String encryptId = response.jsonPath().get("data.encryptId").toString();
-            System.out.println(encryptId);*/
             System.out.println(response);
-            given()
+            Response response1 = given()
 //                    .contentType("application/json;charset=UTF-8")
-                    .formParam("mobile" ,"13295466345")
-                    .formParam( "password" ,"c41a15db1773221f403ed21f4a53f45b")
-                    .formParam( "encryptMode" ,"3DES")
-                    .formParam( "encryptId" ,response.jsonPath().get("data.encryptId").toString())
+                    .formParam("mobile", "15921302190")
+                    .formParam("password", "Wlf@2025")
+                    .formParam("encryptMode", "3DES")
+                    .formParam("encryptId", response.jsonPath().get("data.encryptId").toString())
 //                .body("{\"mobile\": \"13295466345\", \"password\": \"Zzx@20251\",\"encryptMode\": \"3DES\",\"encryptId\": \""+response.jsonPath().get("data.encryptId")+"\"}")
-                    .cookie ("HWWAFSESID=11b667393dba52c352; HWWAFSESTIME=1751941309772; ticket=TK4E0C5X1LSY2LJL5CV5WNN97UMCRUNF"  )
+                    .cookie("HWWAFSESID=11b667393dba52c352; HWWAFSESTIME=1751941309772; ticket=TK4E0C5X1LSY2LJL5CV5WNN97UMCRUNF")
                     .log().all()
-        .when()
-                .post("https://iot.easyctid.cn/herelink-manage-business2/api/1.0.0/business/system/signin")
-        .then().log().body();
+                    .when()
+                    .post("https://zd-iot.here.link/herelink-manage-business2/api/1.0.0/business/system/signin")
+                    .then().log().body().extract().response();
+            //
 
         }
+        @Test
+    public void testMerchant(){
+
+        given().cookie("ticket=TKWCJAAVXTMCDKGC28897T48FWHRDBSL")
+                .header(new Header("intebox-sso-tkt", "TK1G5IX0KWU3ME1ZCGFV48QINS6Z58I1"))
+                .log().all()
+                .when().post("https://zd-iot.here.link/herelink-manage-business2/api/1.0.0/business/system/get/merchant")
+
+                .then().log().body();
+        }
+
 
     }
 
