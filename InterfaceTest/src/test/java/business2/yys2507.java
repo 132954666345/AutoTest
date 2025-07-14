@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 public class yys2507 {
     private String url = "https://zd-iot.here.link";
@@ -37,7 +38,7 @@ public class yys2507 {
         map.put("mobile","15619293847");
         map.put("userName","运营商测试");
         map.put("regionName","朝阳区");
-        map.put("yysName","联通");
+        map.put("yysName","移动");
 
         given().cookie("ticket=TKWCJAAVXTMCDKGC28897T48FWHRDBSL")
                 .contentType("application/json")
@@ -46,7 +47,7 @@ public class yys2507 {
                 .log().all()
                 .when().post(url+"/herelink-manage-business2/api/v2/web/yys/add/user")
                 .then().log().all()
-                .assertThat().statusCode(200)
+                .body("errorCode",equalTo(0))
         ;
     }
     @Test
@@ -54,7 +55,7 @@ public class yys2507 {
         Map<String,Object> map = new HashMap<>();
         map.put("id",28);
         map.put("mobile","15619293847");
-        map.put("userName","运营商测试2");
+        map.put("userName","<script>alert(1)</script>");
         map.put("regionName","朝阳区");
         map.put("yysName","联通");
 
@@ -65,7 +66,7 @@ public class yys2507 {
                 .log().all()
                 .when().post(url+"/herelink-manage-business2/api/v2/web/yys/edit/user")
                 .then().log().all()
-                .assertThat().statusCode(200)
+                .body("errorCode",equalTo(0))
         ;
     }
     @Test
@@ -87,7 +88,7 @@ public class yys2507 {
                     .post(url+"/herelink-manage-business2/api/v2/web/yys/del/user")
                 .then()
                 .log().all()
-                .assertThat().statusCode(200)
+                .body("errorCode",equalTo(0))
         ;
     }
     @Test
@@ -104,7 +105,7 @@ public class yys2507 {
                 .log().all()
                 .when().post(url+"/herelink-manage-business2/api/v2/web/yys/page/user")
                 .then().log().all()
-                .assertThat().statusCode(200)
+                .body("errorCode",equalTo(0))
         ;
     }
     @Test
@@ -117,7 +118,7 @@ public class yys2507 {
                 .log().all()
                 .when().post(url+"/herelink-manage-business2/api/v2/web/yys/page/room/list")
                 .then().log().all()
-                .assertThat().statusCode(200)
+                .body("errorCode",equalTo(0))
         ;
     }
     @Test
