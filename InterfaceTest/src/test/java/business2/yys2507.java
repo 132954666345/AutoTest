@@ -1,9 +1,6 @@
 package business2;
 
-import io.restassured.RestAssured;
 import io.restassured.http.Header;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.FileInputStream;
@@ -18,10 +15,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class yys2507 {
-    @BeforeClass
-    public void setup(){
-        RestAssured.baseURI = "https://zd-iot.here.link/herelink-manage-business2/api/v2/web/yys";
-    }
+    private String url = "https://zd-iot.here.link";
 
     @Test
     public void testSelect(){
@@ -33,7 +27,7 @@ public class yys2507 {
                 .body(map)
                 .log().all()
 
-                .when().post("/select")
+                .when().post(url+"/herelink-manage-business2/api/v2/web/yys/select")
 
                 .then().log().all()
                 .assertThat().statusCode(200);
@@ -51,7 +45,7 @@ public class yys2507 {
                 .body(map)
                 .header("intebox-sso-tkt", "TK1G5IX0KWU3ME1ZCGFV48QINS6Z58I1")
                 .log().all()
-                .when().post("/add/user")
+                .when().post(url+"/herelink-manage-business2/api/v2/web/yys/add/user")
                 .then().log().all()
                 .body("errorCode",equalTo(0))
         ;
@@ -70,7 +64,7 @@ public class yys2507 {
                 .body(map)
                 .header("intebox-sso-tkt", "TK1G5IX0KWU3ME1ZCGFV48QINS6Z58I1")
                 .log().all()
-                .when().post("/edit/user")
+                .when().post(url+"/herelink-manage-business2/api/v2/web/yys/edit/user")
                 .then().log().all()
                 .body("errorCode",equalTo(0))
         ;
@@ -91,7 +85,7 @@ public class yys2507 {
                 .header("intebox-sso-tkt", "TK1G5IX0KWU3ME1ZCGFV48QINS6Z58I1")
                 .log().all()
                 .when()
-                    .post("/del/user")
+                    .post(url+"/herelink-manage-business2/api/v2/web/yys/del/user")
                 .then()
                 .log().all()
                 .body("errorCode",equalTo(0))
@@ -109,7 +103,7 @@ public class yys2507 {
                 .body(map)
                 .header("intebox-sso-tkt", "TK1G5IX0KWU3ME1ZCGFV48QINS6Z58I1")
                 .log().all()
-                .when().post("/page/user")
+                .when().post(url+"/herelink-manage-business2/api/v2/web/yys/page/user")
                 .then().log().all()
                 .body("errorCode",equalTo(0))
         ;
@@ -122,7 +116,7 @@ public class yys2507 {
                 .body(map)
                 .header("intebox-sso-tkt", "TK1G5IX0KWU3ME1ZCGFV48QINS6Z58I1")
                 .log().all()
-                .when().post("/page/room/list")
+                .when().post(url+"/herelink-manage-business2/api/v2/web/yys/page/room/list")
                 .then().log().all()
                 .body("errorCode",equalTo(0))
         ;
@@ -135,7 +129,7 @@ public class yys2507 {
                 .body(map)
                 .header("intebox-sso-tkt", "TK1G5IX0KWU3ME1ZCGFV48QINS6Z58I1")
                 .log().all()
-                .when().post("/select/manage")
+                .when().post(url+"/herelink-manage-business2/api/v2/web/yys/select/manage")
                 .then().log().all()
                 .assertThat().statusCode(200)
         ;
