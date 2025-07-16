@@ -1,5 +1,0 @@
-﻿testCaseId,testType,description,endpoint,method,expectedStatusCode,payload
-TC001,api,用户登录,/auth/login,POST,200,"{""username"":""test"",password:""pass""}"
-TC002,api,获取用户信息,/users/1,GET,200,
-TC003,ui,首页加载,/,GET,200,https://example.com
-TC004,ui,搜索功能测试,/,GET,200,https://example.com/search
