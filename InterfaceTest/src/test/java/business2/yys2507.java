@@ -13,11 +13,45 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class yys2507 {
+
+    @Test
+    public void ScheduledExecutorTest(){
+        //创建单线程定时任务调度器
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+
+        //定义测试任务
+        Runnable task = () ->{
+            this.testAddUser();
+            this.testEditUser();
+            this.testDelUser();
+            this.testPageUser();
+            this.testPageRoomList();
+            this.testSelectManage();
+            this.testSelect();
+        };
+        //安排定时任务
+        //延迟0秒，每隔3秒执行一次
+        executor.scheduleAtFixedRate(task, 10, 3, java.util.concurrent.TimeUnit.SECONDS);
+
+        //主线程等待10秒后关闭
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        executor.shutdown();
+    }
+
+
+
+
     @BeforeClass
     public void setup(){
         RestAssured.baseURI = "https://zd-iot.here.link/herelink-manage-business2/api/v2/web/yys";
@@ -54,6 +88,7 @@ public class yys2507 {
                 .when().post("/add/user")
                 .then().log().all()
                 .body("errorCode",equalTo(0))
+                .assertThat().statusCode(200)
         ;
     }
     @Test
@@ -73,6 +108,7 @@ public class yys2507 {
                 .when().post("/edit/user")
                 .then().log().all()
                 .body("errorCode",equalTo(0))
+                .assertThat().statusCode(200)
         ;
     }
     @Test
@@ -95,6 +131,7 @@ public class yys2507 {
                 .then()
                 .log().all()
                 .body("errorCode",equalTo(0))
+                .assertThat().statusCode(200)
         ;
     }
     @Test
@@ -112,6 +149,7 @@ public class yys2507 {
                 .when().post("/page/user")
                 .then().log().all()
                 .body("errorCode",equalTo(0))
+                .assertThat().statusCode(200)
         ;
     }
     @Test
@@ -125,6 +163,7 @@ public class yys2507 {
                 .when().post("/page/room/list")
                 .then().log().all()
                 .body("errorCode",equalTo(0))
+                .assertThat().statusCode(200)
         ;
     }
     @Test
